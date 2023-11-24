@@ -73,14 +73,22 @@ func find_range(part_one, part_two string) (bool, bool) {
     check_F := possibility_to_contain(convert_U(part_one_range[0]), convert_U(part_two_range[0]))
 
     if check_F == 1 {
-        return contain_check_confirmation(convert_U(part_two_range[1]), convert_U(part_one_range[1])), check_overlap(part_one_range, part_two_range)
+        return contain_check_confirmation(convert_U(part_two_range[1]), 
+        convert_U(part_one_range[1])), check_overlap(part_one_range,
+        part_two_range)
     } else if check_F == 2 {
-        return contain_check_confirmation(convert_U(part_one_range[1]), convert_U(part_two_range[1])), check_overlap(part_one_range, part_two_range)
+        return contain_check_confirmation(convert_U(part_one_range[1]), 
+        convert_U(part_two_range[1])), check_overlap(part_one_range, 
+        part_two_range)
     } else {
         if convert_U(part_one_range[1]) < convert_U(part_two_range[1]) {
-            return contain_check_confirmation(convert_U(part_one_range[1]), convert_U(part_two_range[1])), check_overlap(part_one_range, part_two_range)
+            return contain_check_confirmation(convert_U(part_one_range[1]), 
+            convert_U(part_two_range[1])), 
+            check_overlap(part_one_range, part_two_range)
         } else { 
-            return contain_check_confirmation(convert_U(part_two_range[1]), convert_U(part_one_range[1])), check_overlap(part_one_range, part_two_range)
+            return contain_check_confirmation(convert_U(part_two_range[1]), 
+            convert_U(part_one_range[1])), 
+            check_overlap(part_one_range, part_two_range)
         }
     }
 }
