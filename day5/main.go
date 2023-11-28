@@ -72,6 +72,9 @@ func move_F(count_M, stack_F, stack_T uint) {
 }
 
 //function to move multiple elements without disturbing its order
+//good old swapping
+//getting elements to move from stack_F and assign it as temp slice
+//then append them to the stack_T destination and computated other needed operations
 func move2_F(count_M, stack_F, stack_T uint) {
     temp := stacks[stack_F - 1][((stack_P[stack_F - 1] - int(count_M)) + 1) : ]
     stacks[stack_T - 1] = append(stacks[stack_T - 1], temp...)
