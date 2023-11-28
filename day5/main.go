@@ -17,6 +17,9 @@ const (
 var stacks [STACK_COUNT][]string
 var stack_P [STACK_COUNT] int
 
+//deciding factor for choosing part 
+var part int
+
 //initial stacks 
 func init_stack() {
     stacks[0] = append(stacks[0], "N", "D", "M", "Q", "B", "P", "Z")
@@ -68,6 +71,15 @@ func move_F(count_M, stack_F, stack_T uint) {
 
 }
 
+//function to move multiple elements without disturbing its order
+func move2_F(count_M, stack_F, stack_T uint) {
+    temp := stacks[stack_F - 1][((stack_P[stack_F - 1] - int(count_M)) + 1) : ]
+    stacks[stack_T - 1] = append(stacks[stack_T - 1], temp...)
+    stack_P[stack_T - 1] = (len(stacks[stack_T - 1])) - 1
+    stacks[stack_F - 1] = stacks[stack_F - 1][ : ((stack_P[stack_F - 1] - int(count_M)) + 1 )]
+    stack_P[stack_F - 1] = (len(stacks[stack_F - 1])) - 1
+}
+
 //function to move desired elements to stack mentioned by move_F 
 func move_T(move_E string, stack_T uint) {
     stacks[stack_T - 1] = append(stacks[stack_T - 1], move_E)
@@ -89,14 +101,28 @@ func move_A(stack_F, stack_T uint) {
 func split_input(input string){ 
     splitted_input := strings.Split(input, " ")
     //calling move_F function
-    move_F(to_Uint(splitted_input[1]),
-        to_Uint(splitted_input[3]),
-        to_Uint(splitted_input[5]))
+    if part == 1 {
+        move_F(to_Uint(splitted_input[1]),
+            to_Uint(splitted_input[3]),
+            to_Uint(splitted_input[5]))
+    } else {
+        move2_F(to_Uint(splitted_input[1]),
+            to_Uint(splitted_input[3]),
+            to_Uint(splitted_input[5]))
+    }
 }
 
 func main() {
     //initialising stacks
     init_stack()
+
+    //getting input from user
+    fmt.Println("Enter 1 for part one or 2 for part two result ")
+    input_N, err := fmt.Scan(&part)
+
+    if err != nil || input_N > 1{
+        fmt.Println(err)
+    }
 
     //opening file
     file, err := os.Open("input")
